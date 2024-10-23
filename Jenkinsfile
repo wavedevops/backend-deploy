@@ -35,7 +35,7 @@ pipeline {
         }
         success { 
             echo 'I will run when pipeline is successful'
-        }
+        } 
         failure { 
             echo 'I will run when the pipeline fails'
         }
