@@ -22,12 +22,12 @@ pipeline {
         stage('Print The  Version') {
             steps {
                 script  {
-                echo "Loaded app version: ${params.AppVersion}"
+                echo "latest app version: ${params.AppVersion}"
                 }
             }
         }
     }
-    
+
     post { 
         always { 
             echo 'I will always say Hello again!'
