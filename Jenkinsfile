@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'AGENT-1'
+        label 'workstation'
     }
     options {
         timeout(time: 30, unit: 'MINUTES')
@@ -12,7 +12,6 @@ pipeline {
     }
     environment{
         def appVersion = '' //variable declaration
-        nexusUrl = 'nexus.daws78s.online:8081'
     }
     stages {
         stage('print the version'){
