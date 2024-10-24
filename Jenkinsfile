@@ -18,11 +18,19 @@ pipeline {
     }
 
     stages {
+        stage('App Version') {
+            steps {
+                script {
+                echo "App Version is: ${params.appVersion}"
+                }
+            }
+        }
         stage('Terraform Init') {
             steps {
                 script {
                     sh '''
                     pwd
+                    cd terraform
                     terraform init
                     '''
                 }
@@ -33,7 +41,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    terraform plan -var="app_version=${appVersion}"
+                    cd terraform
+                    terraform plan -var="app_version=${params.appVersion}"
                     '''
                 }
             }
