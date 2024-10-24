@@ -18,6 +18,4 @@ variable "common_tags" {
 variable "zone_name" {
   default = "chowdary.cloud"
 }
-variable "app_version" {
-  default = " "
-}
+variable "app_version" {}
