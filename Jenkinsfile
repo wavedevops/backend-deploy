@@ -1,42 +1,54 @@
 pipeline {
     agent {
-        label 'workstation' // Use the appropriate label for your node
+        label 'workstation'
     }
-    
+
     options {
-        ansiColor('xterm')        // Enable ANSI color output
-        disableConcurrentBuilds() // Ensure the pipeline runs only once at a time
+        ansiColor('xterm')
+        disableConcurrentBuilds()
     }
+
     parameters {
-        string(name: 'AppVersion', defaultValue: '1.0.0', description: 'what is the app version?')
+        string(name: 'AppVersion', defaultValue: '1.0.0', description: 'What is the app version?')
     }
-    
+
     environment {
-        // Placeholder - environment variables cannot use 'read JSON' directly.
-        appVersion = '' 
-        nexusUrl = 'nexus.chaitu.net/repository/backend/' // Fixed URL
+        appVersion = "${params.AppVersion}"
         component = 'backend'
     }
-    
+
     stages {
-        stage('Print The  Version') {
+        stage('Terraform Init') {
             steps {
-                script  {
-                echo "latest app version: ${params.AppVersion}"
+                script {
+                    sh '''
+                    pwd
+                    terraform init
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    sh '''
+                    terraform plan -var="app_version=${appVersion}"
+                    '''
                 }
             }
         }
     }
 
-    post { 
-        always { 
+    post {
+        always {
             echo 'I will always say Hello again!'
             deleteDir() // Clean up the workspace
         }
-        success { 
-            echo 'I will run when pipeline is successful'
-        } 
-        failure { 
+        success {
+            echo 'I will run when the pipeline is successful'
+        }
+        failure {
             echo 'I will run when the pipeline fails'
         }
     }
