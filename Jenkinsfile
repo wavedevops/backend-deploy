@@ -29,16 +29,16 @@ pipeline {
             }
         }
 
-//         stage('Terraform Plan') {
-//             steps {
-//                 script {
-//                     sh '''
-//                     terraform plan -var="app_version=${appVersion}"
-//                     '''
-//                 }
-//             }
-//         }
-//     }
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    sh '''
+                    terraform plan -var="app_version=${appVersion}"
+                    '''
+                }
+            }
+        }
+    }
 
     post {
         always {
