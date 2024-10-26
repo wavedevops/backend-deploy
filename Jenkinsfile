@@ -10,7 +10,7 @@ pipeline {
     }
 
     parameters {
-        string(name: 'appVersion', defaultValue: '1.0.0', description: 'Application version to deploy')
+        string(name: 'appVersion', defaultValue: '*', description: 'Application version to deploy')
     }
 
     stages {
